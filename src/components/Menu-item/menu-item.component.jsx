@@ -5,7 +5,8 @@ import './menu-item.styles.scss';
 const cardBackground = (imageUrl) => ({backgroundImage: `url(${imageUrl})`})
 
 const MenuItem = ({sectionData : {size, title, imageUrl}}) => (
-    <div className={`menu-item ${size}`} style={cardBackground(imageUrl)}>
+    <div className={`menu-item ${size}`}>
+      <div className="background-image" style={cardBackground(imageUrl)}></div>
       <div className="content">
         <h1 className="title"> {title} </h1>
         <span className="subtitle"> SHOP NOW </span>
