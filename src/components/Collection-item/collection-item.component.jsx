@@ -1,8 +1,16 @@
 import React from  'react';
 
-const CollectionItem = ({name}) => (  
-  <div>
-    <p> {name} </p>
+import './collection-item.style.scss';
+
+const setBackground = (imageUrl) => ({backgroundImage: `url(${imageUrl})`});
+
+const CollectionItem = ({name, price, imageUrl}) => (  
+  <div className="collection-item">
+    <div className="image" style={setBackground(imageUrl)} />
+    <div className="collection-footer">
+      <span className="name"> {name} </span>
+      <span className="price"> {price} </span>
+    </div>
   </div>
 );
 
