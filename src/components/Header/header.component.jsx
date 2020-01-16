@@ -2,8 +2,12 @@ import React from 'react';
 import {Link} from 'react-router-dom';
 import './header.style.scss';
 import {ReactComponent as Logo} from '../../assets/crown.svg';
+import {auth} from '../../firebase/firebase.utils'
 
-const Header = ()=> (
+const signIn = (<Link to="/sign-in" className="option"> SIGN IN </Link>)
+const logout = (<div className="option" onClick={()=> auth.signOut()} > LOGOUT </div>)
+
+const Header = ({user})=> (
   <nav className="header">
     <Link to="/" className="logo-container">
       <Logo className="logo" />
@@ -15,9 +19,7 @@ const Header = ()=> (
       <Link to="/contact" className="option">
         CONTACT
       </Link>
-      <Link to="/sign-in" className="option">
-        SIGN IN
-      </Link>
+      {user ? logout : signIn}
     </div>
   </nav>
 );

@@ -6,8 +6,8 @@ import Config from './firebase.config'
 
 firebase.initializeApp(Config)
 
-const auth          = firebase.auth()
-// const firestore     = firebase.firestore()
+export const auth          = firebase.auth()
+// export const firestore     = firebase.firestore()
 const authProvider  = new firebase.auth.GoogleAuthProvider().setCustomParameters({prompt: 'select_account'})
 
 export const  SignInWithGoogle = () => auth.signInWithPopup(authProvider)
