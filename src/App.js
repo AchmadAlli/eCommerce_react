@@ -1,38 +1,34 @@
 import React, {Component} from 'react';
+import {connect} from 'react-redux';
 import {BrowserRouter, Switch, Route} from 'react-router-dom';
 import Header from '../src/components/Header/header.component';
 import Homepage from './pages/Homepage/homepage.component';
 import Shop from './pages/Shop/shop.component';
 import Authentication from './pages/Authentication/authentication.component';
-import {auth, initProfile} from './firebase/firebase.utils'
+import {auth, initProfile} from './firebase/firebase.utils';
+import {setUser} from './redux/user/user.actions';
 import './App.css';
 
 class App extends Component {
 
-  constructor(props) {
-    super(props)
-  
-    this.state = {
-       user: null
-    }
-  }
-
   unsubscribeFromAuth = null
 
   componentDidMount(){
+    const {setUser} = this.props;
+
     this.unsubscribeFromAuth = auth.onAuthStateChanged( async userAuth => {
       if(userAuth){
         const user      = await initProfile(userAuth)
                 
         user.onSnapshot(snapShot => {
-          this.setState({
+          setUser({
             id: snapShot.id,
             ...snapShot.data()
           })
         })
 
       } 
-      this.setState({user: userAuth})
+      setUser({user: userAuth})
     })
   }
 
@@ -43,7 +39,7 @@ class App extends Component {
   render(){
     return (
       <BrowserRouter>
-        <Header user={this.state.user} />
+        <Header />
         <Switch>
           <Route exact path='/' component={Homepage} />
           <Route path='/shop' component={Shop} />
@@ -52,8 +48,10 @@ class App extends Component {
       </BrowserRouter>
     )
   }
-  
-
 }
 
-export default App;
+const mapDispatchToProps= dispatch => ({
+  setUser: user => dispatch(setUser(user))
+})
+
+export default connect(null, mapDispatchToProps)(App);
