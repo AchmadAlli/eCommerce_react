@@ -2,13 +2,15 @@ import React from 'react';
 import {connect} from 'react-redux';
 import {Link} from 'react-router-dom';
 import {ReactComponent as Logo} from '../../assets/crown.svg';
-import {auth} from '../../firebase/firebase.utils'
+import {auth} from '../../firebase/firebase.utils';
+import CartIcon from '../Cart-icon/cart-icon.component';
+import CartDropdown from '../Cart-dropdown/cart-dropdown.component';
 import './header.style.scss';
 
 const signIn = (<Link to="/sign-in" className="option"> SIGN IN </Link>)
 const logout = (<div className="option" onClick={()=> auth.signOut()} > LOGOUT </div>)
 
-const Header = ({user})=> (
+const Header = ({user, isHidden})=> (
   <nav className="header">
     <Link to="/" className="logo-container">
       <Logo className="logo" />
@@ -21,12 +23,15 @@ const Header = ({user})=> (
         CONTACT
       </Link>
       {user ? logout : signIn}
+      <CartIcon />
     </div>
+    {isHidden ? null : <CartDropdown />}
   </nav>
 );
 
 const mapStateToProps = state => ({
-  user: state.user.currentUser
+  user: state.user.currentUser,
+  isHidden: state.cart.isHidden
 })
 
 export default connect(mapStateToProps)(Header);
