@@ -21,17 +21,12 @@ class SignUp extends Component{
 
     const {displayName, email, password} = this.state
 
-    console.log(event);
-    
-
     if(this.isUnequalPassword(event)){
       alert('Password is Not Same')
       return;
     }
 
     try {
-      console.log(typeof(email));
-      
       const {user}  = await auth.createUserWithEmailAndPassword(email, password)
       const userObj = {
         ...user, 
@@ -53,6 +48,10 @@ class SignUp extends Component{
   changeHandler = event => {
     const {name, value} = event.target
     this.setState({[name]: value})
+  }
+
+  isUnequalPassword(data){
+    return data.target.password === data.target.confirmPassword
   }
 
   render() {
@@ -104,10 +103,6 @@ class SignUp extends Component{
         
       </div>
     )
-  }
-
-  isUnequalPassword(data){
-    return data.target.password === data.target.confirmPassword
   }
 }
 
