@@ -26,9 +26,9 @@ class App extends Component {
             ...snapShot.data()
           })
         })
-
-      } 
-      setUser({user: userAuth})
+      } else {
+        setUser(userAuth)
+      }
     })
   }
 
