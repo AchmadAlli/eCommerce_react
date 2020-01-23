@@ -17,6 +17,13 @@
     flex-direction: column;
     overflow: auto;
   }
+  
+  .empty-message{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 300px;
+  }
 
   button {
     margin-top: auto;

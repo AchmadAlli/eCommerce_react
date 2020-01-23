@@ -8,6 +8,7 @@ import { setUser } from './redux/user/user.actions';
 import Header from '../src/components/Header/header.component';
 import Homepage from './pages/Homepage/homepage.component';
 import Shop from './pages/Shop/shop.component';
+import Checkout from './pages/Checkout/checkout.component'
 import Authentication from './pages/Authentication/authentication.component';
 import './App.css';
 
@@ -57,6 +58,7 @@ class App extends Component {
           <Route exact path='/' component={Homepage} />
           <Route path='/shop' component={Shop} />
           <Route exact path='/sign-in' render={this.authHandler} />
+          <Route exact path="/checkout" component={Checkout} />
         </Switch>
       </BrowserRouter>
     )
